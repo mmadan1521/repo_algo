@@ -1,0 +1,60 @@
+
+
+ 5 6 7 1 2 3 4
+
+Selection sort:
+================
+
+In each pass SELECT the smallest element (inner for loop should find the smallest element) and
+put its corresponding position (outer for loop should give the position) 
+
+For (I = 0; I < n; I++) {
+	for (j = I; j < n - 1; j++) {
+		sel_idx = j;
+		if (a[sel_idx] > a[j+1]) {
+			sel = j + 1;
+		}
+	}
+	if (I != sel_idx) {
+		swap(a[I], a[sel]);
+	}
+}
+
+For (I = 0; I < n; I++) {
+	for (j = I +1; j < n ; j++) {
+		if (a[i] > a[j]) {
+			swap(a[i], a[j]);
+		}
+	}
+}
+
+Insertion sort:
+================
+
+like sorting a pack of cards:
+    consider first element (it would already be sorted)
+    now consider the second element and INSERT in its appropriate position (considering first and second element)
+    continue the process
+For (I = 0; I < n; I++) {
+	for (j = i; j > 0; j—) {
+		if (a[j] < a[j-1]) {
+			swap(a[j], a[j-1]
+		}
+	}
+}
+
+I feel insertion sort is very underrated because the insertion part of the logic could use binary search and improve the time complexity to [ N log(N) ].
+But the problem is if the array is sorted in the reverse direction we will have to move n element to the right and then insert to the left
+
+Bubble sort:
+==============
+
+Inner for loop BUBBLE the largest element to end
+
+For (I = 0; I < n; I++) {
+	for (j = 0; j < n - I - 1; j++) {
+		if (a[j] > a[j+1]) {
+			swap(a[j], a[j+1]);
+		}
+	}
+}
