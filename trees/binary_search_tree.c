@@ -38,17 +38,30 @@ bool tree_remove_node(tnode_t **tree, int data)
       } else { // found node
          tnode_t *del_node = root;
          printf("found node to be deleted: %d\n", del_node->data);
-         if (root->rchild) {
+         if (root->lchild == NULL && root->rchild == NULL) { // case-1: no children
+            root = NULL;
+            *tree = root; // UPDATE THE TREE ROOT POINTER - basically updating the parent pointer
+            free(del_node); // free deleted node's memory
+         } else if (root->lchild == NULL) { // case-2: right child only
+            root = root->rchild; // skip the node to be deleted
+            *tree = root; // UPDATE THE TREE ROOT POINTER / parent pointer with rchild address
+            free(del_node); // free deleted node's memory
+         } else if (root->rchild == NULL) { // case-3: left child only
+            root = root->lchild; // skip the node to be deleted
+            *tree = root; // UPDATE THE TREE ROOT POINTER / parent pointer with lchild address
+            free(del_node); // free deleted node's memory
+         } else { // case 4: both left and right sub-trees
+            // find the min node in the right sub-tree
             root = root->rchild;
-            while (root->lchild != NULL) { // find the left most node
+            while(root->lchild) {
                root = root->lchild;
             }
-            root->lchild = del_node->lchild; // attach deleted node's left subtree
-         } else {
-            root = root->lchild;
+            // overwrite the data in the del_node with MIN node data from the right subtree
+            del_node->data = root->data;
+            // remove the MIN node from the right subtree
+            // this will fall into either case-1, case-2 or case-3 above
+            tree_remove_node(&del_node->rchild, root->data);
          }
-         free(del_node); // free deleted node's memory
-         *tree = root; // UPDATE THE TREE ROOT POINTER - basically updating the parent pointer
       }
    }
    return false;
