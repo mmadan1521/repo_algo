@@ -1,4 +1,28 @@
 
+"""
+Data Structure for coding in C
+typedef struct vertex {
+   char *name;
+   struct edge *edges[];
+   float cost;
+   bool visited
+   struct vertex *previous; // used to BFS to store the path
+} vertex_t;
+
+typedef struct edge {
+   vertex_t *start;
+   vertex_t *finish;
+   float    weight;
+} edge_t;
+
+
+Three representations of Graphs:
+   - Edge list
+   - Adjacency list
+   - Adjancecy matrix
+"""
+
+# below code is similar to DFS
 def find_followers(key: str, graph_edges: dict, visited_vertex_list: dict) -> int:
    if key in graph_edges:
       if key not in visited_vertex_list:
